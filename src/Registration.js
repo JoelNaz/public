@@ -70,14 +70,7 @@ function RegistrationContainer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name)
-    console.log(num1)
-    console.log(num2)
-    console.log(email1)
-    console.log(email2)
-    console.log(pass)
-    console.log(aadhaar)
-    console.log(profilepic)
+    
 
     const data = new FormData();
     data.append('registeree',regtype)
@@ -85,8 +78,8 @@ function RegistrationContainer() {
     data.append("address",address)
     data.append("state",state)
     data.append("bloodgroup",bloodtype)
-    //data.append("aadharimg",aadhaar)
-    //data.append("profilepic",profilepic)
+    data.append("aadharimg",aadhaar)
+    data.append("profilepic",profilepic)
     data.append('username',name)
     data.append("no",num1)
     data.append("altno",num2)
@@ -102,7 +95,7 @@ function RegistrationContainer() {
       axios.post('http://127.0.0.1:8000/authen/register/',data,{
       headers: {
           
-          'Content-Type': 'application/json'
+          'Content-Type': 'multipart/form-data'
       }})
     .then(response => console.log(response))
     .catch(err => console.log(err))
@@ -185,7 +178,7 @@ function RegistrationContainer() {
                         <div className="d-flex justify-content-center">
                             <div className="btn btn-primary btn-rounded">
                                 <label className="form-label text-white m-1" htmlFor="customFile2">Choose file</label>
-                                <input type="file" className="form-control d-none" id="customFile2" onChange={(e) => handleProfilePic(e.target.value)}/>
+                                <input type="file" className="form-control d-none" id="customFile2" onChange={(e) => handleProfilePic(e.target.files[0])}/>
                             </div>
                         </div>
                     </div>
@@ -219,7 +212,7 @@ function RegistrationContainer() {
             />
             <div className="mb-3">
                 <label htmlFor="formFile" className="form-label">Attach Photo of Aadhaar Card</label>
-                <input className="form-control" type="file" id="formFile" onChange={(e) => handleAadhaar(e.target.value)}/>
+                <input className="form-control" type="file" id="formFile" onChange={(e) => handleAadhaar(e.target.files[0])}/>
             </div>
             
             <Box sx={{ minWidth: 120 }}>
