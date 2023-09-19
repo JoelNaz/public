@@ -1,0 +1,94 @@
+.abhyanStatisticsBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    height: 90%;
+    text-align: center;
+    background-color: #0093ff;
+    border-radius: 15px;
+    padding: 4px;
+}
+
+.carousel-item {
+    height: 80vh;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-indicators button {
+    margin: 20px 0px;
+}
+
+.carousel-caption{ 
+    margin-bottom: 15px;
+}
+
+.carousel-caption h5, .carousel-caption p {
+    color: #2230e0;
+}
+
+.carousel-indicators li {
+    background-color: #2230e0;
+}
+
+
+/*Joshicss*/
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    
+    background-color: lightblue
+}
+
+footer {
+    background-color: rgb(42, 122, 202);
+ 
+    color: white;
+    position: relative;
+
+
+
+    bottom: 0;
+    width:100vw;
+
+    display: flex;
+    justify-content: space-between;
+
+
+
+}
+footer div.one{
+    font-size: large;
+}
+footer img{
+    height: 120px;
+    width: 120px;
+}
+
+div.fourimg img{
+    height: 300px;
+    width: 300px;
+
+}
+
+div.container {
+    display: flex;
+    justify-content: space-around;
+
+    padding-top: 4px;
+
+}
+
+div.three a {
+    color: white;
+    text-decoration: none;
+}
