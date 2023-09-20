@@ -22,6 +22,7 @@ import SignInSide from './Login';
 import SearchAppBar from './NavBar.js';
 
 import RegistrationPage from './Registration.js'
+import Dashboard from './Dashboard';
 
 const theme = createTheme();
 
@@ -392,6 +393,7 @@ function App() {
         <Routes>
           <Route path="/" element={[<SearchAppBar/>,<MainContentDisplay/>,<WelcomeContent/>,<Carousel/>,<ObjectiveDisplay/>,<Footer/>]} />
           <Route path="/login" element={<SignInSide />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/register" element={<RegistrationPage />} />
           {/*<Route path="/dashboard"element={<Dashboard/>} />*/}
         </Routes>

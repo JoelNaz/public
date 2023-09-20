@@ -13,7 +13,17 @@ import AppBar from '@mui/material/AppBar';
 import Image from 'mui-image'
 import Box from '@mui/material/Box';
 import RegistrationPage from './Registration';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.withCredentials = true;
+
+
+
 
 const MenuTypography = styled(Typography)`
 text-align: left;
@@ -66,7 +76,7 @@ function BasicMenu() {
           <MenuItem onClick={handleClose}>Video Gallery</MenuItem>
           <Divider/>
           <MenuItem>
-            <Link to="/authen/dashboard/" > Dashboard </Link>
+            <RouterLink to="/dashboard/" > Dashboard </RouterLink>
           </MenuItem>
         </Menu>
       </div>
@@ -116,26 +126,89 @@ const Search = styled('div')(({ theme }) => ({
     },
   }));
   
-  function LoginButton() {
+  /*function LoginButton() {
     return(
-      <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 2 }} component={Link} to="/login" >Login</Button>
+      <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 1 }} component={Link} to="/login" onClick={toggleLogin}>Login</Button>
+    );
+  }
+
+  function LogoutButton() {
+    return(
+      <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 1 }} component={Link} to="/login" onClick={toggleLogin} >Logout</Button>
     );
   }
 
   function RegistrationButton() {
     return(
-      <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 2 }} component={Link} to="/register" >Registration</Button>
+      <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 1 }} component={Link} to="/register" >Register</Button>
     );
-  }
+  }*/
   
 export default function SearchAppBar() {
+
+    const [isLoggedIn, setLogin] = React.useState(false);
+    const [currentUser, setCurrentUser] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      axios.get("http://127.0.0.1:8000/authen/user")
+      .then(function(res) {
+        setCurrentUser(true);
+      })
+      .catch(function(error) {
+        setCurrentUser(false);
+      });
+    }, []
+    
+    );
+
+    const handleLogout = (event) => {
+      event.preventDefault();
+      axios.post(
+        "http://127.0.0.1:8000/authen/logout/",
+        {withCredentials: true}
+      ).then(function(res) {
+        setCurrentUser(false);
+      });
+      alert("You are logged out")
+    }
+
+
+
+    const toggleLogin = () => {
+      setCurrentUser(!currentUser);
+    }
+
+    const LoginButton = () => {
+        return(
+            <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 1 }} component={RouterLink} to="/login" >Login</Button>
+        );
+    }
+
+    const LogoutButton = () => {
+        return(
+            <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 1 }} onClick={handleLogout} >Logout</Button>
+        );
+    }
+
+    const RegistrationButton = () => {
+        return(
+            <Button variant="contained" sx={{ backgroundColor: '#8dcdfb', color: '#000000', ml: 1 }} component={RouterLink} to="/register" >Register</Button>
+        );
+    }
+
     return (
       <Box sx={{ flexGrow: 1 }}>
 
         <Box sx={{ backgroundColor: '#00499e' }}>
-          <Link to="https://socialjustice.gov.in/schemes/42#:~:text=Under%20this%20scheme%2C%20financial%20assistance,cum%2Dde%2Daddiction%20camps%20">
-            <Typography sx={{ padding: 0.2, pr: 1, color: '#ffffff' }} align='center'>Skip to Main Content<span style={{ float: 'right' }}>हिन्दी</span></Typography>
-          </Link>
+            <Typography color='#ffffff' sx={{ padding: 0.2, pr: 1 }} align='center'>
+                <Link component={RouterLink} to="https://socialjustice.gov.in/schemes/42#:~:text=Under%20this%20scheme%2C%20financial%20assistance,cum%2Dde%2Daddiction%20camps%20" color='inherit'>
+                    Skip to Main Content
+                </Link>
+                <span style={{ float: 'right' }}>
+                    हिन्दी
+                </span>
+            </Typography>
         </Box>
 
         <AppBar position="static">
@@ -172,7 +245,7 @@ export default function SearchAppBar() {
                 sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}*/
                 sx={{ fontWeight: 'bold'}}
               >
-                Nasha Mukht Bharat Abhiyan
+                Nirog Bharat Abhiyan
               </Typography>
               <Typography
                 variant="h5"
@@ -193,11 +266,15 @@ export default function SearchAppBar() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-  
-            <LoginButton/>
-            <RegistrationButton/>
-            
-  
+
+            {currentUser
+              ? <LogoutButton></LogoutButton>
+              : <>
+                  <RegistrationButton/>
+                  <LoginButton/>
+                </>
+            }
+
             <Image 
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/G20_India_2023_logo.svg/2560px-G20_India_2023_logo.svg.png"
               width="8%"

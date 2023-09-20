@@ -86,6 +86,7 @@ function RegistrationContainer() {
     data.append("email",email1)
     data.append("altemail",email2)
     data.append("password",pass)
+    data.append("gender",gender)
 
     for (var pair of data.entries())
       {
@@ -108,34 +109,40 @@ function RegistrationContainer() {
   }
 
   const [regtype, setRegType] = React.useState('');
-  console.log(regtype)
 
-  const handleChange = (event) => {
-    setRegType(event.target.value);
+  const handleChange = (regtype) => {
+    setRegType(regtype);
   };
 
   const [bloodtype, setBloodType] = React.useState('');
-    console.log(bloodtype)
-    const handleChangeBlood = (event) => {
-      setBloodType(event.target.value);
+  
+    const handleChangeBlood = (bloodtype) => {
+      setBloodType(bloodtype);
     };
 
   const [addiction, setAddiction] = React.useState('');
 
-  const handleChangeAddiction = (event) => {
-    setAddiction(event.target.value);
+  const handleChangeAddiction = (addiction) => {
+    setAddiction(addiction);
   };
 
   const [address, setAddress] = React.useState('');
-  const handleChangeAddress = (event) =>{
-    setAddress(event.target.value);
+
+  const handleChangeAddress = (address) =>{
+    setAddress(address);
   };
 
   const [state, setState] = React.useState('');
   
-    const handleChangeState = (event) => {
-      setState(event.target.value);
+    const handleChangeState = (state) => {
+        setState(state);
     };
+
+    const [gender, setGender] = React.useState('')
+
+    const handleGender = (gender) => {
+        setGender(gender);
+    }
 
     return(
         <Container component='form' sx={{ display: 'flex', flexDirection: 'column', padding: 2, gap: 2, backgroundColor: '#ffffff', borderRadius: '10px', border: '2px solid black' }} onSubmit={(event) => handleSubmit(event)}>
@@ -148,7 +155,7 @@ function RegistrationContainer() {
                   id="demo-simple-select"
                   value={regtype}
                   label="Registering For"
-                  onChange={handleChange}
+                  onChange={(e) => handleChange(e.target.value)}
                 >
                   <MenuItem value={'Self'}>Self</MenuItem>
                   <MenuItem value={'Family'}>Family</MenuItem>
@@ -193,7 +200,7 @@ function RegistrationContainer() {
                   id="demo-simple-select"
                   value={addiction}
                   label="Addiction Type"
-                  onChange={handleChangeAddiction}
+                  onChange={(e) => handleChangeAddiction(e.target.value)}
                 >
                   <MenuItem value={1}>Drugs</MenuItem>
                   <MenuItem value={2}>Alcohol</MenuItem>
@@ -207,7 +214,7 @@ function RegistrationContainer() {
                 label="Address"
                 multiline
                 rows={4}
-                onChange={handleChangeAddress}
+                onChange={(e) => handleChangeAddress(e.target.value)}
                 placeholder="Address (Max Length: 200)"
             />
             <div className="mb-3">
@@ -223,7 +230,7 @@ function RegistrationContainer() {
                   id="demo-simple-select"
                   value={state}
                   label="State"
-                  onChange={handleChangeState}
+                  onChange={(e) => handleChangeState(e.target.value)}
                 >
                   <MenuItem value={1}>Maharashtra</MenuItem>
                   <MenuItem value={2}>Goa</MenuItem>
@@ -240,7 +247,7 @@ function RegistrationContainer() {
                   id="demo-simple-select"
                   value={bloodtype}
                   label="Registering For"
-                  onChange={handleChangeBlood}
+                  onChange={(e) => handleChangeBlood(e.target.value)}
                 >
                   <MenuItem value={'A+'}>A+</MenuItem>
                   <MenuItem value={'A-'}>A-</MenuItem>
@@ -253,7 +260,8 @@ function RegistrationContainer() {
               <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                name="radio-buttons-group"
+                name="radio-buttons-group" 
+                onChange={(e) => handleGender(e.target.value)}
               >
                 <FormControlLabel value="male" control={<Radio />} label="Male" />
                 <FormControlLabel value="female" control={<Radio />} label="Female" />

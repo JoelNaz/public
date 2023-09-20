@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import background from "./static/images/Login_Image_Upscaled.jpg";
 import SearchAppBar from "./NavBar";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
@@ -39,6 +40,7 @@ function Copyright(props) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
     
 
     const handleSubmit = (event) => {
@@ -63,7 +65,12 @@ function Copyright(props) {
     .then(response => console.log(response))
     .catch(err => console.log(err))
 
-
+    navigate('/');
+    alert('You Are Successfully Logged In')
+    
+    
+    
+    
     
     
     
