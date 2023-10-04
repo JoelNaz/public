@@ -40,7 +40,7 @@ export default function Dashboard() {
                                 Patient Details
                             </p>
                             <p className='Dashboard-Content'>
-                                Name: {results.username}<br/>Gender: {results.gender}Blood Group: {results.bloodgroup}<br/>Addiction Type: {results.addiction}<br/>Doctor Assigned: {}
+                                Name: {results.username}<br/>Gender: {results.gender}<br/>Blood Group: {results.bloodgroup}<br/>Addiction Type: {results.addiction}<br/>Doctor Assigned: {}
                             </p>
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '20%'}}>
@@ -58,7 +58,7 @@ export default function Dashboard() {
                                 Contact Information
                             </p>
                             <p className='Dashboard-Content'>
-                                Email: {results.email}<br/>Alternate Email: {results.altemail}<br/>Phone No: {results.no}Alternate Phone No: {results.altno}<br/>Address: {results.address}
+                                Email: {results.email}<br/>Alternate Email: {results.altemail}<br/>Phone No: {results.no}<br/>Alternate Phone No: {results.altno}<br/>Address: {results.address}
                             </p>
                         </Typography>
                     </Box>

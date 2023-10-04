@@ -20,6 +20,15 @@ axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 function RegistrationContainer() {
 
+  
+    navigator.geolocation.getCurrentPosition(function(position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+    });
+  
+
+
+
   const [name, setName] = React.useState('');
   
 	const [num1, setNum] = React.useState('');
@@ -202,9 +211,9 @@ function RegistrationContainer() {
                   label="Addiction Type"
                   onChange={(e) => handleChangeAddiction(e.target.value)}
                 >
-                  <MenuItem value={1}>Drugs</MenuItem>
-                  <MenuItem value={2}>Alcohol</MenuItem>
-                  <MenuItem value={3}>Others</MenuItem>
+                  <MenuItem value={'Drugs'}>Drugs</MenuItem>
+                  <MenuItem value={'Alcohol'}>Alcohol</MenuItem>
+                  <MenuItem value={'Others'}>Others</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -232,9 +241,9 @@ function RegistrationContainer() {
                   label="State"
                   onChange={(e) => handleChangeState(e.target.value)}
                 >
-                  <MenuItem value={1}>Maharashtra</MenuItem>
-                  <MenuItem value={2}>Goa</MenuItem>
-                  <MenuItem value={3}>Kerala</MenuItem>
+                  <MenuItem value={'Maharashtra'}>Maharashtra</MenuItem>
+                  <MenuItem value={'Goa'}>Goa</MenuItem>
+                  <MenuItem value={'Kerala'}>Kerala</MenuItem>
                 </Select>
               </FormControl>
             </Box>

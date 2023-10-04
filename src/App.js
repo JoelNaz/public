@@ -1,6 +1,6 @@
 import './App.css';
 import Button from '@mui/material/Button';
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, Link as RouterLink } from "react-router-dom"
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -8,7 +8,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Footer from './Footer.js';
 import Image from 'mui-image'
-
+import AdminDashboard from './AdminDashboard.js';
+import CADashboard from './CADComponents/CADashboard.js';
 import Container from '@mui/material/Container';
 
 import ChildCareOutlinedIcon from '@mui/icons-material/ChildCareOutlined';
@@ -20,9 +21,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SignInSide from './Login';
 
 import SearchAppBar from './NavBar.js';
-
+import PledgePage from './PledgePage';
 import RegistrationPage from './Registration.js'
 import Dashboard from './Dashboard';
+import { Link } from '@mui/material';
+
 
 const theme = createTheme();
 
@@ -276,36 +279,43 @@ const StyledBox = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: black;
+  text-decoration: none;
 `;
+
+const StyledLink = styled(Link)`
+color: black;
+text-decoration: none;
+`
 
 function MainContentDisplay() {
   return(
     <>
       <Container maxWidth={false} sx={{ display: 'flex', width: '100%', height: '60vh', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 3, backgroundColor: '#ffffff'}}>
         <Container sx={{ display: 'flex', justifyContent: 'space-evenly'}}>
-          <StyledBox  > 
-            <Typography component={Link} to='/authen/index/' variant='h6' sx={{ textAlign: 'center', color: '#000000','&:hover': {color: "#000000"} }}>Take a Pledge<br/># Pledges Taken</Typography>
+          <StyledBox component={RouterLink} to='/pledge'> 
+            <Typography variant='h6'  align='center'>Take a Pledge<br/>51290 Pledges Taken</Typography>
           </StyledBox>
-          <StyledBox >
-            <Typography variant='h6' sx={{ textAlign: 'center' }}>Nearest Nasha Mukti<br/>Center</Typography>
+          <StyledBox component={RouterLink}>
+            <Typography variant='h6' align='center'>Nearest Nasha Mukti<br/>Center</Typography>
           </StyledBox>
         </Container>
         <Container sx={{ display: 'flex' , width: '100%', height: '50%', justifyContent: 'space-around', alignItems: 'center' }}>
           <Box className="abhyanStatisticsBox">
             <ChildCareOutlinedIcon sx={{ fontSize: '7em' }}/>
-            <StyledTypography>#<br/>Youth Reached Out</StyledTypography>
+            <StyledTypography>33623250+<br/>Youth Reached Out</StyledTypography>
           </Box>
           <Box className='abhyanStatisticsBox'>
             <FemaleOutlinedIcon sx={{ fontSize: '7em' }}/>
-            <StyledTypography>#<br/>Woman Reached Out</StyledTypography>
+            <StyledTypography>22453257+<br/>Woman Reached Out</StyledTypography>
           </Box>
           <Box className='abhyanStatisticsBox'>
             <SchoolOutlinedIcon sx={{ fontSize: '7em' }}/>
-            <StyledTypography>#<br/>Educational Institutes Covered</StyledTypography>
+            <StyledTypography>325984+<br/>Educational Institutes Covered</StyledTypography>
           </Box>
           <Box className='abhyanStatisticsBox'>
             <PeopleOutlineOutlinedIcon sx={{ fontSize: '7em' }}/>
-            <StyledTypography>#<br/>Total People Reached Out</StyledTypography>
+            <StyledTypography>106156730+<br/>Total People Reached Out</StyledTypography>
           </Box>
         </Container>
       </Container>
@@ -317,9 +327,10 @@ function WelcomeContent() {
   return(
     <>
       <Container maxWidth={false} sx={{ backgroundImage: 'linear-gradient(to top left, #E233FF, #FF6B00)', padding: '2%'}}>
-        <Typography sx={{ color: '#ffffff', fontSize: '50px', textAlign: 'center',}}>Welcome to Nasha Mukht Bharat Abhiyan!</Typography>
+        <Typography sx={{ color: '#ffffff', fontSize: '50px', textAlign: 'center',}}>Welcome to Nirog Bharat Abhiyaan!</Typography>
         <Box sx={{ display: 'flex', backgroundColor: 'inherit', width: '100%', justifyContent: 'center', pt: 2 }}> 
-          <Image src='static/images/NMBA_Logo.png' width='15%'/>
+          {/*<Image src='static/images/NMBA_Logo.png' width='15%'/>*/}
+          <Image src='static/images/Nirog.png' width='12%' />
         </Box>
         <Container maxWidth={false} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5%', padding: '0%' }}>
           <Box sx={{ width: '75%' , color: '#ffffff'}}>  
@@ -332,7 +343,7 @@ function WelcomeContent() {
             <Typography textAlign='justify' sx={{ fontWeight: 'medium' , mt: 2 }}>"If we have to save coming generations of the country then we must keep them away from drugs. Keeping this is mind, The 'Nasha Mukht Bharat Abhiyan' was launched on 15 August, 2020" - Shri Narendra Modi </Typography>
           </Box>
           <Box sx={{display: 'flex', flexDirection: 'column', padding: 2, width: '30%', justifyContent: 'center', alignItems: 'center', backgroundColor: 'inherit', gap: 2 }}>
-            <Image src='static/images/Modiji.png' width='70%'/>
+            <Image src='static/images/Modiji.png' width='60%'/>
             <Typography sx={{ textAlign: 'center', fontWeight: 'medium', color: '#ffffff' }}>Shri Narendra Modi<br/>Prime Minister of India</Typography>
           </Box>
         </Container>
@@ -346,7 +357,9 @@ function ObjectiveDisplay() {
   return(
     <>
       <Container maxWidth={false} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#c065dc', color: 'white', gap: 2, padding: 2}}>
-        <Image src='https://nmba.dosje.gov.in/assets/images/indianMap.png' width='25%'/>
+        <Link sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '25%' }} component={RouterLink} to="https://www.google.com/maps/d/viewer?mid=1tdLtmShkciGDV57B25ZpzI_Mp6CDiN7U&ll=23.65618657066699%2C85.93051471425989&z=5" >
+          <Image src='https://nmba.dosje.gov.in/assets/images/indianMap.png' width='100%'/>
+        </Link>
         <Typography variant='h3' fontWeight="bold">Objectives of the Abhiyaan</Typography>
         <Typography variant='h6' fontWeight='normal'>Nasha Mukt Bharat Abhiyaan intends to reach out to the masses and spread awareness about substance abuse through various activities like:</Typography>
         <ul className='objectives-list'>
@@ -358,31 +371,8 @@ function ObjectiveDisplay() {
         </ul>
       </Container>
     </>
-  );
-}
-
-
-
-
-
-
-
-
-
-
-/*function App() {
-  return (
-    <>
-      <ThemeProvider theme={theme}>
-        <SearchAppBar/>
-        <MainContentDisplay/>
-        <WelcomeContent/>
-        <Carousel/>
-
-      </ThemeProvider>
-    </>
   );
-}*/
+}
 
 
 
@@ -394,7 +384,10 @@ function App() {
           <Route path="/" element={[<SearchAppBar/>,<MainContentDisplay/>,<WelcomeContent/>,<Carousel/>,<ObjectiveDisplay/>,<Footer/>]} />
           <Route path="/login" element={<SignInSide />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admindashboard" element={<AdminDashboard/>} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/pledge" element={<PledgePage />} />
+          <Route path="/sa" element={<CADashboard />} />
           {/*<Route path="/dashboard"element={<Dashboard/>} />*/}
         </Routes>
         </Router>

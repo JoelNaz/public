@@ -30,9 +30,38 @@ text-align: left;
 margin: 6px;
 `;
 
+const StyledLink = styled(Link)`
+color: black;
+text-decoration: none;
+`
+
 function BasicMenu() {
+
+  
+
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const [isAdmin, setIsAdmin] = useState();
+    const [currentUser, setCurrentUser] = useState();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      axios.get("http://127.0.0.1:8000/authen/user")
+      .then((response) =>
+      {if(response.data.centeradmin==true)
+        {
+          setIsAdmin(true);
+        }
+        setCurrentUser(true);
+        
+      })
+      .catch(function(error) {
+        setCurrentUser(false);
+        setIsAdmin(false);
+      });
+    }, []);
+
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -53,7 +82,7 @@ function BasicMenu() {
             size="large"
             edge="start"
             aria-label="open drawer"
-            sx={{ mr: 2, color: '#000000', fontSize: 50 }}
+            sx={{ mr: 2, color: '#000000', fontSize: 40 }}
           />
         </Button>
         <Menu
@@ -67,17 +96,27 @@ function BasicMenu() {
         >
           <MenuItem onClick={handleClose}>Home</MenuItem>
           <Divider />
-          <MenuTypography >About Us</MenuTypography>
+          <MenuItem > About Us</MenuItem>
           <Divider />
-          <MenuTypography >Take a Pledge</MenuTypography>
+          <MenuItem > Take a Pledge</MenuItem>
           <Divider/>
-          <MenuTypography>Gallery</MenuTypography>
+          <MenuItem> Gallery</MenuItem>
           <MenuItem onClick={handleClose}>Photo Gallery</MenuItem>
           <MenuItem onClick={handleClose}>Video Gallery</MenuItem>
           <Divider/>
+          
+          {currentUser?isAdmin?
           <MenuItem>
-            <RouterLink to="/dashboard/" > Dashboard </RouterLink>
+            <StyledLink component={RouterLink} to="/admindashboard" > Admin Dashboard </StyledLink>
           </MenuItem>
+          :
+          <MenuItem> 
+            <StyledLink component={RouterLink} to="/dashboard" > User Dashboard </StyledLink>
+          </MenuItem>:''
+          }
+          
+          
+          
         </Menu>
       </div>
     );
@@ -153,8 +192,7 @@ export default function SearchAppBar() {
     useEffect(() => {
       axios.get("http://127.0.0.1:8000/authen/user")
       .then(function(res) {
-        setCurrentUser(true);
-      })
+        setCurrentUser(true);})
       .catch(function(error) {
         setCurrentUser(false);
       });
@@ -201,7 +239,7 @@ export default function SearchAppBar() {
       <Box sx={{ flexGrow: 1 }}>
 
         <Box sx={{ backgroundColor: '#00499e' }}>
-            <Typography color='#ffffff' sx={{ padding: 0.2, pr: 1 }} align='center'>
+            <Typography color='#ffffff' sx={{ padding: 0.2, pr: 1, pl: 1, ml: 3 }} align='center'>
                 <Link component={RouterLink} to="https://socialjustice.gov.in/schemes/42#:~:text=Under%20this%20scheme%2C%20financial%20assistance,cum%2Dde%2Daddiction%20camps%20" color='inherit'>
                     Skip to Main Content
                 </Link>
@@ -223,11 +261,17 @@ export default function SearchAppBar() {
               <MenuIcon />
             </IconButton>*/}
             <BasicMenu />
+
+            <Image
+              src="static/images/Nirog.png"
+              width="6%"
+              style={{ padding: 2, }}
+            />
             
             <Image 
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Emblem_of_India.svg/1200px-Emblem_of_India.svg.png" //Path relative to public directory!
               bgColor="{primary.main}"
-              width="3%"
+              width="4%"
               style={{padding: 5, }}
             
             />
